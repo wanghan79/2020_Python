@@ -63,7 +63,7 @@ def dataScreening(data, datarange):
 
             elif type(x) is str:
                 if x.find(datarange) != -1:
-                    new_result.add(x )
+                    new_result.add(x)
                 continue
         return new_result
     except Exception as e:
