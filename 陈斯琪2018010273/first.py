@@ -68,7 +68,7 @@ def dataScreening(data, datarange):
         return new_result
     except Exception as e:
         print(e)
-        print('你输入的参数有误')
+        print('input is wrong!!!')
 
 
 def apply():
