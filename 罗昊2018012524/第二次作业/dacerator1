@@ -1,0 +1,65 @@
+##!/usr/bin/python3
+"""
+  Author:  LuoHao
+  Purpose:
+  Created: 1/6/2020
+  Description: The two-layer cycle completes the decoration
+"""
+
+import random
+import string
+
+def DataSampling(func):
+    '''
+            :param datatype: int or float or str
+            :param datarange: iterable data set
+            :param num: number
+            :param strlen:string length
+        '''
+    def wrapper(datatype, datarange, num, *args, strlen=8):
+        result = set()
+        if datatype is int:
+            while len(result) < num:
+                it = iter(datarange)
+                item = random.randint(next(it), next(it))
+                result.add(item)
+        elif datatype is float:
+            while len(result) < num:
+                it = iter(datarange)
+                item = random.uniform(next(it), next(it))
+                result.add(item)
+        elif datatype is str:
+            while len(result) < num:
+                item = ''.join(random.SystemRandom().choice(datarange) for _ in range(strlen))
+                result.add(item)
+        print(result)
+        return func(result, *args)
+    return wrapper
+
+@DataSampling
+def DataScreening(data, *args):
+    '''
+                :Description: Generate a given condition random data set.
+                :param data: a dataset
+                :param args: conditions
+            '''
+    result = set()
+    for item in data:
+        for i in args:
+            if type(i) is set or list or tuple:
+                try:
+                    it = iter(i)
+                    if item >= next(it) and item <= next(it):
+                        result.add(item)
+                        break
+                except StopIteration:
+                    pass
+            elif type(i) is str:
+                if i in item:
+                    result.add(item)
+                    break
+    print(result)
+
+DataScreening(int, (1, 100), 12, (0, 20), (50, 100))
+DataScreening(float, (1, 100), 12, (0, 20), (40, 70))
+DataScreening(str, string.ascii_letters + string.digits + "@#$!", 12, 'a', 'c', 'at')
