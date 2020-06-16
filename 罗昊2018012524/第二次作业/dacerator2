@@ -1,0 +1,69 @@
+##!/usr/bin/python3
+"""
+  Author:  LuoHao
+  Purpose:
+  Created: 1/6/2020
+  Description: Three layers of loops and modifier parameters are used
+"""
+
+import random
+import string
+
+def dataSampling(datatype, datarange, num, strlen=8):
+    '''
+            :param datatype: int or float or str
+            :param datarange: iterable data set
+            :param num: number
+            :param strlen:string length
+        '''
+    def decorator(func):
+        def wrapper(*args):
+            result = set()
+            if datatype is int:
+                while len(result) < num:
+                    it = iter(datarange)
+                    item = random.randint(next(it), next(it))
+                    result.add(item)
+            elif datatype is float:
+                while len(result) < num:
+                    it = iter(datarange)
+                    item = random.uniform(next(it), next(it))
+                    result.add(item)
+            elif datatype is str:
+                while len(result) < num:
+                    item = ''.join(random.SystemRandom().choice(datarange) for _ in range(strlen))
+                    result.add(item)
+            print(result)
+            return func(result, *args)
+        return wrapper
+    return decorator
+
+#@dataSampling(float, (1, 100), 12)
+@dataSampling(str, string.ascii_letters + string.digits + "@#$!", 12, 5)
+#@dataSampling(int, (0, 100), 10)
+def dataScreening(data, *args):
+    '''
+                :Description: Generate a given condition random data set.
+                :param data: a dataset
+                :param args: conditions
+            '''
+    result = set()
+    for item in data:
+        for i in args:
+            if type(i) is set or list or tuple:
+                try:
+                    it = iter(i)
+                    if item >= next(it) and item <= next(it):
+                        result.add(item)
+                        break
+                except StopIteration:
+                    pass
+            elif type(i) is str:
+                if i in item:
+                    result.add(item)
+                    break
+    print(result)
+
+#dataScreening((0, 20), (40, 70))
+dataScreening('a', 'c', 'at')
+#dataScreening((0, 10), (50, 100))
