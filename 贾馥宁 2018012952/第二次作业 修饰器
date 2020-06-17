@@ -1,0 +1,50 @@
+##!/usr/bin/python3
+"""
+  Author:  FuNing Jia
+  Purpose: Generate random data set by decoration.
+  Created: 16/6/2020
+"""
+import random
+import string
+
+def dataSampling():
+    def wrapper(datatype, datarange, num, *conditions, strlen=10):
+        result = set()
+        if datatype is int:
+            while len(result) < num:
+                it = iter(datarange)
+                item = random.randint(next(it), next(it))
+                result.add(item)
+        elif datatype is float:
+            while len(result) <num:
+                it = iter(datarange)
+                item = random.uniform(next(it), next(it))
+                result.add(item)
+        elif datatype is str:
+            while len(result) < num:
+                item = ''.join(random.SystemRandom().choice(datarange) for _ in range(strlen))
+                result.add(item)
+        return func(result, *conditions)
+    return wrapper
+
+@dataSampling
+def DataScreening(data, *conditions):
+    result = set()
+    for item in data:
+        if type(item) is int:
+            it = iter(conditions)
+            if next(it)<=i and next(it)>=item:
+                result.add(item)
+        elif type(item) is float:
+            it = iter(conditions)
+            if next(it)<=item and next(it)>=item:
+                result.add(item)
+        elif type(item) is str:
+            for teststr in conditions:
+                if teststr in item:
+                    result.add(item)
+    return result
+
+DataScreening (int,[0,536],100,20,60)
+DataScreening (float,[0,536],100,20,60)
+DataScreening (str, string, 1000, 'jf', 'n')
