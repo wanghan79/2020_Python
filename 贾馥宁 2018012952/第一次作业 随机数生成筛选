@@ -42,7 +42,6 @@ def dataSampling(datatype, datarange, num, strlen=8):
     finally:
         print()
 
-
 def dataScreening(data, *conditions):
     result = set()
     try:
