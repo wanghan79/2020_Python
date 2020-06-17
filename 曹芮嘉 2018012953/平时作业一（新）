@@ -1,0 +1,88 @@
+"""
+Author: Cao Ruijia
+Purpose: Generate random data set.
+Created: 17/6/2020
+"""
+import string
+import random
+
+def DataSampling(datatype, datarange, num, strlen=10):
+try:
+result = set()
+if datatype is int:
+while True:
+it=iter(datarange)
+item = random.randint(next(it), next(it))
+result.add(item)
+if len(result)>=num:
+break
+elif datatype is float:
+while True:
+it = iter(datarange)
+item = random.uniform(next(it), next(it))
+result.add(item)
+if len(result) >= num:
+break
+
+     elif datatype is str:
+         while True:
+            item = ''.join(random.SystemRandom().choice(datarange) for _ in range(strlen))
+            result.add(item)
+            if len(result)>=num:
+                break
+
+
+
+ except NameError:
+     print("请在数据采样中输入基本数据类型")
+ except TypeError:
+     print("请键入正确的数")
+ except MemoryError:
+     print("数据采样中内存不足的数据太多")
+ except:
+     raise Exception
+ else:
+     return result
+ finally:
+     print("请继续在数据采样中生成数据")
+def DataScreening(data, *conditions):
+try:
+result=set()
+for item in data:
+if type(item) is int or type(item) is float:
+it = iter(conditions)
+if next(it)<=item<=next(it):
+result.add(item)
+elif type(item) is str:
+for substr in conditions:
+if substr in item:
+result.add(item)
+
+ except TypeError:
+     print("请键入正确的数据类型")
+ except:
+     raise Exception
+ else:
+     return result
+ finally:
+     print("请继续在数据筛选中筛选数据")
+def Apply():
+#整型
+result1= DataSampling(int,[0,200],100)
+print(DataScreening(result1,20,60))
+
+ result2 = DataSampling(int,55, 100)
+ print(DataScreening(result2,20,50))
+# 浮点型
+ result3=DataSampling(float,[0,100],100)
+ print(DataScreening(result3,60,70))
+
+ result4 = DataSampling(float, [50, 100],"qqq")
+ print(DataScreening(result4, 60, 70))
+#字符串型
+ result5= DataSampling(str,string.ascii_letters+string.digits,2000,15)
+ print(DataScreening(result5,'az','azz','azzz'))
+
+ result6 = DataSampling(str,100, 2000,15)   #Exception occurred 100 is not correct type
+ print(DataScreening(result6, 'az','azz','azzz'))
+Apply()
