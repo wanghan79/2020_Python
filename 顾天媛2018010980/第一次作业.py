@@ -30,7 +30,16 @@ def create_set(datatype, datarange, num, strlen=8):
                 item = ''.join(random.SystemRandom().choice(datarange) for _ in range(strlen))
                 old_set.add(item)
                 continue
+
+        else:
+            print('请输入datatype:int、float、str!')
         return old_set
+    except OverflowError:
+        print('数值运算超出最大限制')
+    except TypeError:
+        print('对类型无效的操作')
+    except ValueError:
+        print('ValueError 传入无效的参数')
     except Exception as e:
         print(e)
         print('你输入的参数有误')
@@ -57,7 +66,13 @@ def select_set(old_set, datatype, datarange):
                 if x.find(datarange) != -1:
                     new_set.add(x)
                 continue
-        return new_set
+        print(new_set)
+    except OverflowError:
+        print('数值运算超出最大限制')
+    except TypeError:
+        print('对类型无效的操作')
+    except ValueError:
+        print('ValueError 传入无效的参数')
     except Exception as e:
         print(e)
         print('你输入的参数有误')
@@ -65,19 +80,10 @@ def select_set(old_set, datatype, datarange):
 def apply():
     base_str = string.ascii_letters + string.digits #   + string.punctuation
     old_set1 = create_set(int, (1,100), 10)
-   # print(old_set1)
-    new_set1 = select_set(old_set1, int, (2,50))
-    print(new_set1)
-    print('---------------------------------------------')
+    select_set(old_set1, int, (2,50))
     old_set2 = create_set(float, (100, 200), 20)
-   # print(old_set2)
-    new_set2 = select_set(old_set2, float, (100, 500))
-    print(new_set2)
-    print('---------------------------------------------')
+    select_set(old_set2, float, (100, 500))
     old_set3 = create_set(str, base_str, 50,10)
-   # print(old_set3)
-    new_set3 = select_set(old_set3, str, 'a')
-    print(new_set3)
-
+    select_set(old_set3, str, 'a')
 
 apply()
