@@ -8,7 +8,7 @@ import random
 import string
 
 def DataSampling(func):
-    def wrapper(datatype, datarange, num, *conditions,strlen=10):
+    def wrapper(datatype, datarange, num, *conditions,strlen=15):
         '''
         :param datatype: basic data type including int float string
         :param datarange: iterable data set
@@ -17,27 +17,34 @@ def DataSampling(func):
         :param strlen: string length
         :return: a function
         '''
-
-
-        result = set()
-        if datatype is int:
-            while len(result)<num:
-                it = iter(datarange)
-                item = random.randint(next(it), next(it))
-                result.add(item)
-
-        elif datatype is float:
-            while len(result)<num:
-                it = iter(datarange)
-                item = random.uniform(next(it), next(it))
-                result.add(item)
-
-        elif datatype is str:
-            while len(result)<num:
-                item = ''.join(random.SystemRandom().choice(datarange) for _ in range(strlen))
-                result.add(item)
-
-        return func(result,*conditions)
+        try:
+            result = set()
+            #整型
+            if datatype is int:
+                while len(result) < num:
+                    it = iter(datarange)
+                    item = random.randint(next(it), next(it))
+                    result.add(item)
+             #浮点型
+            elif datatype is float:
+                while len(result) < num:
+                    it = iter(datarange)
+                    item = random.uniform(next(it), next(it))
+                    result.add(item)
+            #字符串型
+            elif datatype is str:
+                while len(result) < num:
+                    item = ''.join(random.SystemRandom().choice(datarange) for _ in range(strlen))
+                    result.add(item)
+            return func(result, *conditions)
+        except NameError:
+            print("请在数据采样中检查数据类型")
+        except TypeError:
+            print("请检查数据采样中的可迭代数据类型")
+        except MemoryError:
+            print("数据采样中内存不足的数据太多")
+        except:
+            raise Exception
     return wrapper
 
 @DataSampling
@@ -47,22 +54,34 @@ def DataScreening(data, *conditions):
     :param conditions: variable-length argument
     :return: a data set
     '''
-    result = set()
-    for item in data:
-        if type(item) is int or type(item) is float:
-            it = iter(conditions)
-            if next(it) <= item <= next(it):
-                result.add(item)
+    try:
+        result = set()
+        for item in data:
 
-        elif type(item) is str:
-            for substr in conditions:
-                if substr in item:
+            if type(item) is int or type(item) is float:
+                it = iter(conditions)
+                if next(it) <= item <= next(it):
                     result.add(item)
 
-    print(result)
+            elif type(item) is str:
+                for substr in conditions:
+                    if substr in item:
+                        result.add(item)
+        print("数据筛选的结果")
+        print(result)
+        print("欢迎继续生成随机数据")
 
-DataScreening(int,[0,200],100,20,60)
+    except TypeError:
+        print("请在数据筛选中检查数据类型")
+    except:
+        raise Exception
 
+print("---------------------------------------------------")
+DataScreening(int,[0,200],100,60,90)
+print("---------------------------------------------------")
 DataScreening(float,[0,100],100,60,70)
-
+print("---------------------------------------------------")
 DataScreening(str,string.ascii_letters+string.digits,2000,'az','azz','azzz')
+print("---------------------------------------------------")
+DataScreening(int,200,100,20,60)
+print("---------------------------------------------------")
