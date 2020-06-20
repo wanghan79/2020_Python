@@ -1,13 +1,14 @@
 ##!/usr/bin/python3
 """
 
-Author: BinYuZhang      2018010982
+Author: By.Zhang
 Purpose:Generate random data set.
 Created:3/5/2020
 """
 
 import random
 import string
+
 
 def dataSampling(datatype, datarange, num, strlen=8):
     '''
@@ -51,7 +52,7 @@ def dataSampling(datatype, datarange, num, strlen=8):
     else:
         return result
     finally:
-        print()
+        pass
 
 
 def dataScreening(data, *conditions): #*args
@@ -67,11 +68,11 @@ def dataScreening(data, *conditions): #*args
         for i in data:
             if type(i) is int:
                 it = iter(conditions)
-                if next(it)<=i and next(it)>=i:
+                if next(it) <= i and next(it) >= i:
                     result.add(i)
             elif type(i) is float:
                 it = iter(conditions)
-                if next(it)<=i and next(it)>=i:
+                if next(it) <= i and next(it) >= i:
                     result.add(i)
             elif type(i) is str:
                 for teststr in conditions:
@@ -79,21 +80,33 @@ def dataScreening(data, *conditions): #*args
                         result.add(i)
     except Exception as e:
         print("Maybe your condition or data is not correct.")
-
-
     return result
 
 
 def apply():
-    str_ex = string.ascii_letters + string.digits + string.punctuation
     # int类型例子
-    result_1 = dataSampling(int, [0,280], 200)
-    print(dataScreening(result_1,-2,49))
+    result_1 = dataSampling(int, [0, 280], 100)
+    print('随机生成100个在0~280内的整数:')
+    print(result_1)
+    print('筛选其中在10~50之间的数:')
+    print(dataScreening(result_1, 10, 50))
+    print('\n')
+
     # float类型例子
     result_2 = dataSampling(float, [0, 200], 100)
-    print(dataScreening(result_2,20,60))
+    print('随机生成100个在0~200内的浮点数:')
+    print(result_2)
+    print('筛选其中在20~60之间的数:')
+    print(dataScreening(result_2, 20, 60))
+    print('\n')
+
     # str类型例子
-    result_3= dataSampling(str,str_ex,1000,20)
-    print(dataScreening(result_3,'at','no'))
+    str_ex = string.ascii_letters + string.digits + string.punctuation
+    result_3= dataSampling(str, str_ex, 1000, 20)
+    print('随机生成1000个字符串长度为20的字符串:')
+    print(result_3)
+    print('筛选其中含有‘at’或者‘no’的字符串:')
+    print(dataScreening(result_3, 'at', 'no'))
+
 
 apply()

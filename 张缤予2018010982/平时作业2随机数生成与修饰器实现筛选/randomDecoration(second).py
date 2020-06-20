@@ -1,13 +1,14 @@
 ##!/usr/bin/python3
 """
 
-Author: BinYuZhang      2018010982
+Author: By.Zhang
 Purpose:Generate random data set by decoration.
 Created:6/5/2020
 """
 
 import random
 import string
+
 
 def dataSampling(func):
     '''
@@ -70,13 +71,21 @@ def dataScreening(data, *conditions):
     return result
 
 
+def apply():
+    str_ex = string.ascii_letters + string.digits + string.punctuation
+    # int类型例子
+    print('随机生成100个在0~280内的整数并筛选其中在10~50之间的数:')
+    print(dataScreening(int, [0, 280], 100, 10, 50))
+    print('\n')
 
-str_ex = string.ascii_letters + string.digits + string.punctuation
-# int类型例子
-print(dataScreening(int, [0,280], 200, 10,80))
-# float类型例子
-print(dataScreening(float, [0,200], 100, 20,70))
-# # str类型例子
-print(dataScreening(str, str_ex, 1000, 'at', 'no'))
+    # float类型例子
+    print('随机生成100个在0~200内的浮点数并筛选其中在20~60之间的数:')
+    print(dataScreening(float, [0, 200], 100, 20, 60))
+    print('\n')
+
+    # # str类型例子
+    print('随机生成1000个长度默认为8的字符串并筛选其中含有’at‘或者’no‘的字符串:')
+    print(dataScreening(str, str_ex, 1000, 'at', 'no'))
 
 
+apply()
