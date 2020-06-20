@@ -1,6 +1,6 @@
 ##!/usr/bin/python3
 """
-  Author:  FuNing.Jia
+  Author:  FuNing Jia
   Purpose: Generate random data set.
   Created: 16/6/2020
 """
@@ -12,7 +12,7 @@ def dataSampling(datatype, datarange, num, strlen=8):
         if num < 0:
             print("请输入正确的数字")
         if strlen < 0:
-            print("请输入正确的字符串")
+            print("请输入正确的字符")
         result = set()
         if datatype is int:
             while len(result) < num:
@@ -42,6 +42,7 @@ def dataSampling(datatype, datarange, num, strlen=8):
         return result
     finally:
         print()
+
 
 def dataScreening(data, *conditions):
     result = set()
