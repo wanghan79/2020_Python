@@ -1,7 +1,7 @@
 # !/usr/bin/python3
 """
   Author:  FuNing Jia
-  Purpose: Generate random data set.
+  Purpose: Generate random data set by iterator.
   Created: 16/6/2020
 """
 import random
