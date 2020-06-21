@@ -86,6 +86,7 @@ def apply():
         print(i)
     print('\n\n')
 
+    # str型筛选
     print('从数据库中取出含有’a‘或者’no‘的字符串:')
     for i in mycol.find({"$or":[{"data": {"$regex": 'a'}, "datatype": "str"}, {"data": {"$regex": 'no'}, "datatype": "str"}]}):
         print(i)
