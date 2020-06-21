@@ -6,8 +6,8 @@ myclient=pymongo.MongoClient("mongodb://localhost:27017/")
 mydb=myclient["MuseWEI"]
 myIntValue=mydb["Int"]
 myFloatValue=mydb["Float"]
-myStringfalue=mydb["String"]
-def dataSampling(datatype,datarange,num,strlen=8):
+myStringValue=mydb["String"]
+def dataSampling(datatype,datarange,num,strlen=14):
     try:
         if datatype is int:
             for i in range(0,num):
@@ -75,8 +75,8 @@ while True:
         break
 print("随机生成的浮点数：",ans)
 mydict={"value":ans}
-myIntValue.insert_one(mydict)
-for x in myIntValue.find():
+myFloatValue.insert_one(mydict)
+for x in myFloatValue.find():
     y=x
 
 y["value"]=ans
@@ -93,8 +93,8 @@ while True:
         break
 print("随机生成的字符：",ans)
 mydict={"value":ans}
-myIntValue.insert_one(mydict)
-for x in myIntValue.find():
+myStringValue.insert_one(mydict)
+for x in myStringValue.find():
     y=x
 
 y["value"]=ans
