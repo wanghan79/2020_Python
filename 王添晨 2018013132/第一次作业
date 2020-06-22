@@ -28,7 +28,7 @@ def dataSampling(datatype,datarange,num,strlen=8):
     except TypeError:
         print("类型错误，请输入正确类型的数")
     except ValueError:
-        print(“参数错误，请输入正确的数")
+        print("参数错误，请输入正确的数")
     except NameError:
         print("请先输入数据类型")
     else:
@@ -58,7 +58,7 @@ def dataScreening(data, *term):
     except TypeError:
         print("类型错误，请输入正确类型的数")
     except ValueError:
-        print(“参数错误，请输入正确的数")
+        print("参数错误，请输入正确的数")
     except NameError:
         print("请先输入数据类型")
     else:
