@@ -42,7 +42,7 @@ def dataScreening(data,*args):
                 for subster in args:
                     if subster in item:
                         result.add(item)
-        print('筛选后的数据：  ', result)
+        print(result)
 
         return result
 
