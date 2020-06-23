@@ -24,11 +24,11 @@ def dataScreening(data, *args):
     for i in data:
         if type(i) is int:
             it = iter(args)
-            if next(it) <= i and next(it) >= i:
+            if next(it) <= i <= next(it):
                 result.add(i)
         elif type(i) is float:
             it = iter(args)
-            if next(it) <= i and next(it) >= i:
+            if next(it) <= i <= next(it):
                 result.add(i)
         elif type(i) is str:
             for teststr in args:
