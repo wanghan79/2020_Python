@@ -37,10 +37,6 @@ def dataScreening(data, *term):
                 it = iter(term)
                 if next(it) <= item <=next(it):
                     result.add(item)
-            elif type(item) is float:
-                it = iter(term)
-                if next(it) <= item <= next(it):
-                    result.add(item)
             elif type(item) is str:
                 for Screening_str in term:
                     if Screening_str in item:
