@@ -20,8 +20,15 @@ class NoneException(Exception):
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["luohao"]
-mycol = mydb["sites"]
-mycol.drop()
+dblist = myclient.list_database_names()
+if "luohao" in dblist:
+  print("Database already exists")
+mycolInt = mydb["sitesInt"]
+mycolInt.drop()
+mycolFloat = mydb["sitesFloat"]
+mycolFloat.drop()
+mycolStr = mydb["sitesStr"]
+mycolStr.drop()
 
 def dataSampling(datatype, datarange, num, strlen=8):
     '''
@@ -103,7 +110,7 @@ def insert():
         except StopIteration:
             break
     mysetInt = {'type': 'int', 'data': dataInt}
-    mycol.insert_one(mysetInt)
+    mycolInt.insert_one(mysetInt)
 
     dataFloat = []
     num2 = dataSampling(float, (1, 100), 12)
@@ -113,7 +120,7 @@ def insert():
         except StopIteration:
             break
     mysetFloat = {'type': 'float', 'data': dataFloat}
-    mycol.insert_one(mysetFloat)
+    mycolFloat.insert_one(mysetFloat)
 
     dataStr = []
     factor3 = dataSampling(str, string.ascii_letters + string.digits + "@#$!", 12, 5)
@@ -123,24 +130,39 @@ def insert():
         except StopIteration:
             break
     mysetStr = {'type': 'str', 'data': dataStr}
-    mycol.insert_one(mysetStr)
+    mycolStr.insert_one(mysetStr)
 
 def find():
     "To find the data"
-    dataInt = mycol.find_one({'type': 'int'})
-    dataFloat = mycol.find_one({'type': 'float'})
-    dataStr = mycol.find_one({'type': 'str'})
+    #dataInt = mycol.find_one({'type': 'int'})
+    #print(dataInt)
+
+    dataInt = []
+    for x in mycolInt.find({}, {"_id": 0, "data": 1}):
+        for m, n in x.items():
+            dataInt = n
+    dataFloat = []
+    for x in mycolFloat.find({}, {"_id": 0, "data": 1}):
+        for m, n in x.items():
+            dataFloat = n
+    dataStr = []
+    for x in mycolStr.find({}, {"_id": 0, "data": 1}):
+        for m, n in x.items():
+            dataStr = n
 
     dataIntScreening = dataScreening(dataInt, (0, 10), (50, 100))
     dataFloatScreening = dataScreening(dataFloat, (0, 20), (40, 70))
     dataStrScreening = dataScreening(dataStr, 'a', 'c', 'at')
 
+    print(dataInt)
     print("int: (0, 10) (50, 100)")
     print(dataIntScreening)
-
+    print('\n')
+    print(dataFloat)
     print("float: (0, 20) (40, 70)")
     print(dataFloatScreening)
-
+    print('\n')
+    print(dataStr)
     print("str: 'a' 'c' 'at'")
     print(dataStrScreening)
 
