@@ -64,7 +64,7 @@ def dataScreening(data, *conditions):  # conditions 为可变参数*args,*args �
     try:
         # 判断在int和float类型的情况下，输入的conditions是否满足条件
         for item in data:
-            if type(item) is int or type(item) is float and len(conditions) > 2:
+            if (type(item) is int or type(item) is float) and len(conditions) > 2:
                 print("Warning: There are only two numbers needed for data filtering.The first two numbers are "
                       "used as condition ranges")
                 i = iter(conditions)
