@@ -1,14 +1,18 @@
 # !/usr/bin/python3
 """
   Author:  Ty.Gu
-  Purpose: generator & random data set.
-  Created: 18/6/2020
+  Purpose: random data set & MongoDB
+  Created: 24/6/2020
 """
-
-# 平时作业3：使用生成器修改平时作业1中的随机数生成过程，并能够使用随机数筛选函数进行数据筛选；
-
+# 结课作业：使用MongoDB存储平时作业3中生成的随机数，并能从MongoDB中查询数据进行数据筛选。
 import random
 import string
+import pymongo
+from pymongo import MongoClient
+
+myclient = MongoClient("mongodb://localhost:27017")   # 生成mongodb对象
+mydb = myclient["test"]
+mycol = mydb["t1"]
 
 def create_set(datatype, datarange, num, strlen=8):
     try:
@@ -45,27 +49,26 @@ def create_set(datatype, datarange, num, strlen=8):
 
 
 def select_set(old_set, datatype, datarange):
-    new_set = set()
+    mycol.drop()
     for i in old_set:
-        new_set.add(i)
-    print('old_set:\n',new_set)
+        mycol.insert_one({'num':i})
     try:
-        for x in new_set:
+        for x in mycol.find({},{'num':1}):
             if datatype is int:
                 it = iter(datarange)
-                if next(it) <= x <= next(it):
-                    print(x)
+                if next(it) <= x['num'] <= next(it):
+                    print(x['num'])
                 continue
 
             elif datatype is float:
                 it = iter(datarange)
-                if next(it) <= x <= next(it):
-                    print(x)
+                if next(it) <= x['num'] <= next(it):
+                    print(x['num'])
                 continue
 
             elif datatype is str:
-                if x.find(datarange) != -1:
-                    print(x)
+                if x['num'].find(datarange) != -1:
+                    print(x['num'])
                 continue
     except OverflowError:
         print('数值运算超出最大限制')
@@ -78,7 +81,7 @@ def select_set(old_set, datatype, datarange):
         print('你输入的参数有误')
 
 def apply():
-    base_str = string.ascii_letters + string.digits #   + string.punctuation
+    base_str = string.ascii_letters + string.digits
     old_set1 = create_set(int, (1,100), 10)
     select_set(old_set1, int, (2,50))
     old_set2 = create_set(float, (100, 200), 20)
