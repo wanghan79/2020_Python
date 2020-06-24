@@ -43,6 +43,7 @@ def create(func):
             return func(result,condition) #choice传给dataScreening函数的，就是没有
         except Exception as e:
             # 没有单独给每个参数判断错误，不知道怎么整
+            print(e)
             print("input is wrong!!!")
     return dataSampling
 
