@@ -67,9 +67,13 @@ def apply():
     for x in mycol.find():
         print(x)
     # 筛选5~50的数
+    n=0
     print("datascreening:")
     for i in mycol.find({"data":{"$lt": 50, "$gt": 5}}):
         print(i)
+        n += 1
+    if n == 0:
+        print("there is not suitable data!!!")
     print("\n")
 
     # int型
@@ -82,9 +86,13 @@ def apply():
     for x in mycol.find():
         print(x)
     # 筛选5~50的数
+    n=0
     print("datascreening:")
     for i in mycol.find({"data": {"$lt": 50, "$gt": 5}}):
         print(i)
+        n += 1
+    if n == 0:
+        print("there is not suitable data!!!")
     print("\n")
 
 
