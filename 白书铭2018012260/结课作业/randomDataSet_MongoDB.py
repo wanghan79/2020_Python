@@ -8,9 +8,9 @@ import string
 import pymongo
 
 # Creating a database
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-mydb = myclient["randomDataDB"]
-dblist = myclient.list_database_names()
+myClient = pymongo.MongoClient("mongodb://localhost:27017/")
+mydb = myClient["randomDataDB"]
+dblist = myClient.list_database_names()
 if "randomDataDB" in dblist:
     print('randomDataDB exists!')
 myIntCol = mydb["intData"]
