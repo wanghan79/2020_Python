@@ -2,7 +2,7 @@
 """
   Author:  YixuanLiu
   Purpose: Generate random data set.
-  Created: 28/5/2020
+  Created: 22/6/2020
 """
 import random
 import string
