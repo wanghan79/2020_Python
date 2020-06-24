@@ -1,7 +1,7 @@
 # !/usr/bin/python3
 """
   Author:  Ty.Gu
-  Purpose: decorator & random data set.
+  Purpose: generator & random data set.
   Created: 18/6/2020
 """
 
