@@ -62,9 +62,9 @@ def dataScreening(dataSet, *condition):
     '''
     filterRes = set()
     try:
-        ele = iter(dataSet)
+        ele = next(iter(dataSet))
         cond = iter(condition)
-        if type(next(ele)) is int or type(next(ele)) is float:
+        if type(ele) is int or type(ele) is float:
             low = next(cond)
             high = next(cond)
             if low > high:
@@ -72,7 +72,7 @@ def dataScreening(dataSet, *condition):
             for data in dataSet:
                  if low <= data <= high:
                     filterRes.add(data)
-        elif type(next(ele)) is str:
+        elif type(ele) is str:
             substr = next(cond)
             for data in dataSet:
                 if substr in data:
