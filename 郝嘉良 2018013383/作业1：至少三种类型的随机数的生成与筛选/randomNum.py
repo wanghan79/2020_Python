@@ -23,14 +23,18 @@ def generateRandomDataSet(dataType, dataRange, num, strlen = 6):
     rDataSet = set()
     try:
         if dataType is int:
+            it = iter(dataRange)
+            low = next(it)
+            high = next(it)
             while(len(rDataSet) < num):
-                it = iter(dataRange)
-                rData = random.randint(next(it), next(it))
+                rData = random.randint(low, high)
                 rDataSet.add(rData)
         elif dataType is float:
+            it = iter(dataRange)
+            low = next(it)
+            high = next(it)
             while(len(rDataSet) < num):
-                it = iter(dataRange)
-                rData = random.uniform(next(it), next(it))
+                rData = random.uniform(low, high)
                 rDataSet.add(rData)
         elif dataType is str:
             while(len(rDataSet) < num):
