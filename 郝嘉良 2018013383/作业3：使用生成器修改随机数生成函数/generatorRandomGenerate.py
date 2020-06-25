@@ -60,7 +60,7 @@ def generateRandomDataSet(dataType, dataRange, num, strlen = 6):
 def dataScreening(data, *condition):
     '''
     :Description:Screen data by condition
-    :param dataSet: data ready to be screened
+    :param data: data ready to be screened
     :param condition: a series data that used to screen data, 
                       if dataSet element type is int or float, only the first two number can work
                       if dataSet element type is str, condition is string, 
