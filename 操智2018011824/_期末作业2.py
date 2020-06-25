@@ -1,6 +1,6 @@
 import random
 import string
-
+#随机数生成
 def randnum(fun):
     def wrap(dtype, count,d,u,*con):
         list1 = []
@@ -22,7 +22,7 @@ def randnum(fun):
             print(list1)
             fun(dtype, list1, *con)
     return wrap
-
+#使用装饰器
 @randnum
 def slect(dtype,list1,*con):
     if dtype==int or dtype==float:
