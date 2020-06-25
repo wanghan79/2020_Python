@@ -2,6 +2,7 @@
 Author: Bill Hao
 Purpose: Make a generateRandomDataSet decorator to decorate dataScreening
 Created: 5/20/2020
+
 """
 
 import random
@@ -17,20 +18,25 @@ def generateRandomDataSet(dataType, dataRange, num, strlen = 6):
     :param num: Number of data that you want to generate
     :param strlen: if datatype is str, strlen is length of every random string
     :return: random data set
+
     '''
     def decorator(func):
         def wrapper(*args, **kwargs):
             rDataSet = set()
             try:
                 if dataType is int:
+                    it = iter(dataRange)
+                    low = next(it)
+                    high = next(it)
                     while(len(rDataSet) < num):
-                        it = iter(dataRange)
-                        rData = random.randint(next(it), next(it))
+                        rData = random.randint(low, high)
                         rDataSet.add(rData)
                 elif dataType is float:
+                    it = iter(dataRange)
+                    low = next(it)
+                    high = next(it)
                     while(len(rDataSet) < num):
-                        it = iter(dataRange)
-                        rData = random.uniform(next(it), next(it))
+                        rData = random.uniform(low, high)
                         rDataSet.add(rData)
                 elif dataType is str:
                     while(len(rDataSet) < num):
@@ -62,6 +68,7 @@ def dataScreening(dataSet, *condition):
                       if dataSet element type is str, condition is string, 
                       it screeing the str in dataSet that has a substring equal to condition
     :return: data set that filter from param data
+
     '''
     filterRes = set()
     try:
