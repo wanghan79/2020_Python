@@ -1,0 +1,99 @@
+##!/usr/bin/python3
+"""
+  Author:  YiHang.Chen
+  Purpose: Data Sampling and Screening
+  Created: 23/6/2020
+"""
+import random
+import string
+
+def DataSampling(datatype, datarange, num, strlen=8):
+    '''
+        :Description: Generate a given condition random data
+        :param datatype: int float str
+        :param datarange: iterable data set
+        :param num: number of data
+        :param strlen: string length
+        :param yield: iterator
+    '''
+    try:
+        result = set()
+        if datatype is int:
+            for i in range(0, num):
+                it = iter(datarange)
+                item = random.randint(next(it), next(it))
+                yield item
+                continue
+        elif datatype is float:
+            for i in range(0, num):
+                it = iter(datarange)
+                item = random.uniform(next(it), next(it))
+                yield item
+                continue
+        elif datatype is str:
+            for i in range(0, num):
+                item = ''.join(random.SystemRandom().choice(datarange) for _ in range(strlen))
+                yield item
+                continue
+        else:
+            raise NameError
+    except TypeError:
+        print("Please enter the iterable data range in DataSampling")
+    except NameError:
+        print("Please enter the correct data type in DataSampling")
+
+def DataScreening(data, *conditions):
+    '''
+                :Description: Screening the data
+                :param data: a data set
+                :param conditions: Screening conditions
+                :return: a data set
+            '''
+    try:
+        result = set()
+        for item in data:
+            if type(item) is int or float:
+                it = iter(conditions)
+                if item >= next(it) and item <= next(it):
+                    result.add(item)
+            elif type(item) is str:
+                for i in conditions:
+                    if i in item:
+                        result.add(item)
+        return result
+    except TypeError:
+        print("Please enter the correct data type in DataScreening")
+
+def apply():
+    result1 = list()
+    item = DataSampling(int, (0, 100), 12)
+    while True:
+        try:
+            result1.append(next(item))
+        except StopIteration:
+            break
+    result2 = DataScreening(result1, 50, 90)
+    print(result1)
+    print(result2)
+    result1 = list()
+    item = DataSampling(float, (50, 150), 12)
+    while True:
+        try:
+            result1.append(next(item))
+        except StopIteration:
+            break
+    result2 = DataScreening(result1, 90, 120)
+    print(result1)
+    print(result2)
+    result1 = list()
+    item = DataSampling(str, string.ascii_letters + string.digits + "@#$!", 12, 5)
+    while True:
+        try:
+            result1.append(next(item))
+        except StopIteration:
+            break
+    result2 = DataScreening(result1, 'a', 'e')
+    print(result1)
+    print(result2)
+
+apply()
