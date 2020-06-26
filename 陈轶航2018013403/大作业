@@ -1,0 +1,78 @@
+##!/usr/bin/python3
+"""
+  Author:  YiHang.Chen
+  Purpose: Using MongoDB to sample and screen the data set
+  Created: 24/6/2020
+"""
+import random
+import string
+import pymongo
+
+def DataSampling(datatype, datarange, num, strlen=8):
+    '''
+        :Description: Generate a given condition random data
+        :param datatype: int float str
+        :param datarange: iterable data set
+        :param num: number of data
+        :param strlen: string length
+        :param yield: iterator
+    '''
+    try:
+        result = set()
+        if datatype is int:
+            for i in range(0, num):
+                it = iter(datarange)
+                item = random.randint(next(it), next(it))
+                yield item
+                continue
+        elif datatype is float:
+            for i in range(0, num):
+                it = iter(datarange)
+                item = random.uniform(next(it), next(it))
+                yield item
+                continue
+        elif datatype is str:
+            for i in range(0, num):
+                item = ''.join(random.SystemRandom().choice(datarange) for _ in range(strlen))
+                yield item
+                continue
+        else:
+            raise NameError
+    except TypeError:
+        print("Please enter the iterable data range in DataSampling")
+    except NameError:
+        print("Please enter the correct data type in DataSampling")
+
+def apply():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["Cyh"]
+    mycol = mydb["sites"]
+    item = DataSampling(int, (1, 100), 12)
+    while True:
+        try:
+            dataint = {'type': 'int', 'data': next(item)}
+            mycol.insert_one(dataint)
+        except StopIteration:
+            break
+    for x in mycol.find({"data": {"$gt": 50, "$lt": 100}, "type": "int"}):
+        print(x, '\n')
+    item = DataSampling(float, (50, 150), 12)
+    while True:
+        try:
+            datafloat = {'type': 'float', 'data': next(item)}
+            mycol.insert_one(datafloat)
+        except StopIteration:
+            break
+    for x in mycol.find({"data": {"$gt": 50, "$lt": 100}, "type": "float"}):
+        print(x, '\n')
+    item = DataSampling(str, string.ascii_letters + string.digits + "@#$!", 12, 5)
+    while True:
+        try:
+            datastr = {'type': 'str', 'data': next(item)}
+            mycol.insert_one(datastr)
+        except StopIteration:
+            break
+    #for x in mycol.find({"data": {"$regex": 'at'}, "type": "str"}):
+        #print(x, '\n')
+
+apply()
