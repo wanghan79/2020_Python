@@ -1,4 +1,5 @@
 import random
+import string
 
 def dataSampling(datatype,datarange,num):
     result = set()
