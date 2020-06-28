@@ -1,0 +1,35 @@
+import random
+
+def dataSampling(datatype,datarange,num):
+    result = set()
+    for index in range(0,num):
+        if datatype is int:
+            it=iter(datarange)
+            item=random.randint(next(it),next(it))
+            result.add(item)
+            continue
+        elif datatype is float:
+            it = iter(datarange)
+            item = random.uniform(next(it), next(it))
+            result.add(item)
+            continue
+        elif datatype is str:
+            item=''.join(random.SystemRandom().choice(datarange) for _ in range(6))
+            continue
+        else:
+            continue
+    return result
+
+dataScreening(data,conditions):
+result=set()
+return result
+
+
+def apply():
+    result = dataSampling(int,(1,100),3)
+    print(result)
+    result = dataSampling(float, (1, 2), 3)
+    print(result)
+    result = dataSampling(str, "dhuediajdkjcksdhcjksdh", 3)
+    print(result)
+apply()
