@@ -1,4 +1,3 @@
-##!/usr/bin/python3
 # """
 #   Author:  XinYuan.Zhang
 #   Purpose: Decorator and Generate random data set.
@@ -8,7 +7,7 @@
 import string
 import random
 
-def make (func):
+def make(func):
     def dataSampling(datatype, datarange, num,condition, strlen=8):
         result = set()
         try:
@@ -71,7 +70,6 @@ def dataScreening(data, datarange):
      print(e)
     return aresult
 
-
-print(dataScreening(int,{1,100},10,(5,80)))
-print(dataScreening(float,{1,100},10,(5,80)))
-print(dataScreening(str,string.ascii_letters + string.digits + "@#$!",10,'a'))
+print(dataScreening(int,{0,100},10,(10,90)))
+print(dataScreening(float,{0,100},10,(10,90)))
+print(dataScreening(str,string.ascii_letters + string.digits + "ai",10,'bm'))
