@@ -2,7 +2,7 @@
 purpose: generate and screen some random elements(generator implemented)
 description: This program generates one random element after each yield one by one, and if the element satisfies the
 given condition it will be put into the result set. Given set doesn't actually exist as the variable in the program like
-the first program, each element of it was printed as soon as the yield produced one element just as the reference to the
+the first program, each element of it will be printed as soon as the yield produces one element just as the reference to the
 result set when checking the output.
 Author: Yang Hao
 '''
