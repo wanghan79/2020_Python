@@ -72,7 +72,7 @@ def screening(elem, cond):
                     if cond[0] <= cond[1]:                                    # 筛选条件的上下界大小关系合法
                         if cond[0] <= item <= cond[1]:
                             result.add(item)
-                    else:  # 筛选条件的上下界大小关系合法
+                    else:                                                     # 筛选条件的上下界大小关系不合法
                         cond = str(cond)
                         raise InvalidCondition(cond)
             else:                                                             # 筛选条件的类型不合法
