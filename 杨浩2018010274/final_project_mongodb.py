@@ -87,7 +87,7 @@ def screening(elem, cond):
                 if cond[0] <= cond[1]:                                  # 筛选条件的上下界大小关系合法
                      myquery = {"value":{"$gte": cond[0], "$lte": cond[1]}}
                      result = mycol_num.find(myquery)                   # 在mycol中筛选符合条件数据并放入result中
-                else:                                                   # 筛选条件的上下界大小关系合法
+                else:                                                   # 筛选条件的上下界大小关系不合法
                     cond = str(cond)
                     raise InvalidCondition(cond)
             else:                                                       # 筛选条件的类型不合法
