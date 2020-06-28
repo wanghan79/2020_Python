@@ -1,7 +1,7 @@
 '''
 purpose: generate and screen some random elements(decorator implemented)
 description: This program generates some random elements, puts them into a set and screens some of them in the set by
-given conditions.The generator procedure is no longer encapsulated as a normal function in the first program. It is
+given conditions.The generating procedure is no longer encapsulated as a normal function in the first program. It is
 realized in the form of decorator to decorate the screening function.
 Author: Yang Hao
 '''
