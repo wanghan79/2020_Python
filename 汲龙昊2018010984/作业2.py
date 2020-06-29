@@ -53,6 +53,8 @@ def dataScreening(data,*args):
                         resultT.add(i)
         print('筛选后：', resultT)
 
+#set()为无符合结果
+
 dataScreening(int,(0,101),20,5,20)
 dataScreening(float,(0,101),20,5,20)
 dataScreening(str,string.printable,6,'a'or'b')
