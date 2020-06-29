@@ -1,0 +1,77 @@
+##!/usr/bin/python3
+"""
+  Author:  YiHang.Chen
+  Purpose: Data Sampling and Screening with generation
+  Created: 20/6/2020
+"""
+import random
+import string
+
+def DataSampling(func):
+    def wrapper(datatype, datarange, num, *conditions, strlen=8):
+        '''
+                            :Description: Create a given condition random data set.
+                            :param datatype: int float str
+                            :param datarange: iterable data set
+                            :param num: number of data
+                            :param strlen:string length
+                            :return: a data set
+                        '''
+        try:
+            result = set()
+            if datatype is int:
+                while len(result) < num:
+                    it = iter(datarange)
+                    item = random.randint(next(it), next(it))
+                    result.add(item)
+                    continue
+            elif datatype is float:
+                while len(result) < num:
+                    it = iter(datarange)
+                    item = random.uniform(next(it), next(it))
+                    result.add(item)
+                    continue
+            elif datatype is str:
+                while len(result) < num:
+                    item = ''.join(random.SystemRandom().choice(datarange) for _ in range(strlen))
+                    result.add(item)
+                    continue
+            else:
+                raise NameError
+            print(result)
+            return func(result, *conditions)
+        except TypeError:
+            print("Please enter the iterable data range in DataSampling")
+        except NameError:
+            print("Please enter the correct data type in DataSampling")
+    return wrapper
+
+@DataSampling
+def DataScreening(data, *conditions):
+    '''
+                :Description: Screening the data
+                :param data: a data set
+                :param conditions: Screening conditions
+                :return: a data set
+            '''
+    try:
+        result = set()
+        for item in data:
+            if type(item) is int or float:
+                it = iter(conditions)
+                if item >= next(it) and item <= next(it):
+                    result.add(item)
+            elif type(item) is str:
+                for i in conditions:
+                    if i in item:
+                        result.add(item)
+        print(result)
+    except TypeError:
+        print("Please enter the correct data type in DataScreening")
+
+def apply():
+    DataScreening(int, (1, 100), 20, 20, 50)
+    DataScreening(float, (1, 100), 12, 50, 90)
+    DataScreening(str, string.ascii_letters + string.digits + "@#$!", 30, 'a', 'c')
+
+apply()

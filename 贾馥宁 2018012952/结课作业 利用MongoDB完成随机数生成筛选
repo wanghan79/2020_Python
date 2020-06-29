@@ -1,0 +1,91 @@
+# !/usr/bin/python3
+"""
+  Author:  FuNing Jia
+  Purpose: Generate random data set.
+  Created: 19/6/2020
+"""
+import string
+import random
+import pymongo
+
+# 连接本地数据库
+myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+# 声明数据库名称
+mydb = myclient["mongohomework"]
+# 声明集合名称
+mycol = mydb['test']
+
+
+def dataSampling(datatype, datarange, num, strlen=8):
+    try:
+        if num < 0:
+            print("请输入正确的数字")
+        if strlen < 0:
+            print("请输入正确的字符串")
+
+        result = set()
+        it = iter(datarange)
+        if datatype is int:
+            while len(result) < num:
+                item = random.randint(datarange[0], datarange[1])
+                result.add(item)
+                yield(item)
+        elif datatype is float:
+            while len(result) < num:
+                item = random.uniform(datarange[0], datarange[1])
+                result.add(item)
+                yield(item)
+        elif datatype is str:
+            while len(result) < num:
+                item = ''.join(random.SystemRandom().choice(datarange)
+                               for _ in range(strlen))
+                result.add(item)
+                yield(item)
+    except:
+        raise
+
+
+def dataScreening(data, *conditions):
+    result = []
+    try:
+        for i in data:
+            if type(i) is int:
+                it = iter(conditions)
+                if next(it) <= i and next(it) >= i:
+                    result.append(i)
+            elif type(i) is float:
+                it = iter(conditions)
+                if next(it) <= i and next(it) >= i:
+                    result.append(i)
+            elif type(i) is str:
+                for teststr in conditions:
+                    if teststr in i:
+                        result.append(i)
+    except:
+        print("无更多项")
+
+    return result
+
+
+def apply():
+    str_ex = string.ascii_letters + string.digits + string.punctuation
+    # 整型
+    result_1 = dataSampling(int, [0, 536], 200)
+    # 声明成对象
+    mydict = {'type': 'int', 'info': dataScreening(result_1, 20, 50)}
+    # 添加进数据库
+    mycol.insert_one(mydict)
+    # 浮点型
+    result_2 = dataSampling(float, [0, 536], 100)
+    mydict = {'type': 'float', 'info': dataScreening(result_2, 20, 50)}
+    mycol.insert_one(mydict)
+    # # 字符串型
+    result_3 = dataSampling(str, str_ex, 100, 20)
+    mydict = {'type': 'str', 'info': dataScreening(result_3, 'jf', 'n')}
+    mycol.insert_one(mydict)
+
+
+apply()
+
+x = mycol.find_one({"type": 'int'})
+print(x)

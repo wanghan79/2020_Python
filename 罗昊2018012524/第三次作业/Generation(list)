@@ -1,0 +1,125 @@
+##!/usr/bin/python3
+"""
+  Author:  LuoHao
+  Purpose: Data generation and Screening with generation
+  Created: 22/6/2020
+"""
+class TypeException(Exception):
+    pass
+
+class NumException(Exception):
+    pass
+
+class NoneException(Exception):
+    pass
+
+import random
+import string
+
+def dataSampling(datatype, datarange, num, strlen=8):
+    '''
+        :Description: Generate a given condition random data list.
+        :param datatype: int or float or str
+        :param datarange: iterable data set
+        :param num: number
+        :param strlen: string length
+        :param yield: an iterator
+    '''
+    try:
+        if num < 0:
+            raise NumException
+        if datatype is int:
+            for i in range(0, num):
+                it = iter(datarange)
+                item = random.randint(next(it), next(it))
+                yield item
+                continue
+        elif datatype is float:
+            for i in range(0, num):
+                it = iter(datarange)
+                item = random.uniform(next(it), next(it))
+                yield item
+                continue
+        elif datatype is str:
+            for i in range(0, num):
+                item = ''.join(random.SystemRandom().choice(datarange) for _ in range(strlen))
+                yield item
+                continue
+        else:
+            raise TypeException
+    except TypeException:
+        print("Please enter the correct data type in dataSampling(int or float or str)")
+    except TypeError:
+        print("Please enter an iterable range of data")
+    except NumException:
+        print("num must >= 0")
+
+def dataScreening(data, *args):
+    '''
+            :Description: Generate a given condition random data list.
+            :param data: a datalist
+            :param args: conditions
+            :return: a datalist
+        '''
+    try:
+        result = []
+        if data is None:
+            raise NoneException
+        else:
+            for item in data:
+                for i in args:
+                    if type(i) is set or list or tuple:
+                        try:
+                            it = iter(i)
+                            if item >= next(it) and item <= next(it):
+                                result.append(item)
+                                break
+                        except StopIteration:
+                            pass
+                    elif type(i) is str:
+                        if i in item:
+                            result.append(item)
+                            break
+        return result
+    except NoneException:
+        print("Error in dataSampling")
+    except TypeError:
+        print("Please enter the correct data conditions in dataScreening")
+
+def apply():
+
+    data1 = []
+    num1 = dataSampling(int, (1, 100), 12)
+    print(num1)
+    while True:
+        try:
+            data1.append(next(num1))
+        except StopIteration:
+            break
+    test1 = dataScreening(data1, (0, 10), (50, 100))
+    print(data1)
+    print(test1)
+
+    data2 = []
+    num2 = dataSampling(float, (1, 100), 12)
+    while True:
+        try:
+            data2.append(next(num2))
+        except StopIteration:
+            break
+    test2 = dataScreening(data2, (0, 20), (40, 70))
+    print(data2)
+    print(test2)
+
+    data3 = []
+    factor3 = dataSampling(str, string.ascii_letters + string.digits + "@#$!", 12, 5)
+    while True:
+        try:
+            data3.append(next(factor3))
+        except StopIteration:
+            break
+    test3 = dataScreening(data3, 'a', 'c', 'at')
+    print(data3)
+    print(test3)
+
+apply()

@@ -41,6 +41,7 @@ def dataSampling(datatype,datarange,num,strlen=6):
         return result
     except Exception as e:
         # 没有单独给每个参数判断错误，不知道怎么整
+        print(e)
         print("input is wrong!!!")
 
 
