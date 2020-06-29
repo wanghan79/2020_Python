@@ -1,0 +1,48 @@
+import string
+import random
+
+def generate(datatype, datarange, amount, strlen=6):
+    if datatype == int:
+        while len(result) < amount:
+            it = iter(datarange)
+            item = random.randint(next(it), next(it))
+            result.add(item)
+            yield item
+            continue
+    elif datatype == float:
+        while len(result) < amount:
+            it = iter(datarange)
+            item = random.uniform(next(it), next(it))
+            result.add(item)
+            yield item
+            continue
+    elif datatype == str:
+        while len(result) < amount:
+            item = ''.join(random.SystemRandom().choice(datarange) for _ in range(strlen))
+            result.add(item)
+            yield item
+            continue
+
+
+def datascreening(data, dataType, *args):
+    s_result = set()
+    for i in data:
+        if (dataType == int):
+            Range = iter(args)
+            if (next(Range) <= i <= next(Range)):
+                s_result.add(i)
+        elif (dataType == float):
+            Range = iter(args)
+            if (next(Range) <= i <= next(Range)):
+                s_result.add(i)
+        elif (dataType == str):
+            for target in args:
+                if (target in i):
+                    s_result.add(i)
+
+
+return s_result
+except Exception as e:
+      print(e)
+
+apply()
