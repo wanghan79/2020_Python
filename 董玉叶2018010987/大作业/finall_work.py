@@ -9,7 +9,7 @@ Description:
 6.使用MongoDB存储rangedata_creat中生成的随机数，并能从MongoDB中查询数据进行数据筛选。
 Author：yuye.Dong
 purpose:Generate random data set
-Created:15/6/2020
+Created:25/6/2020
 
 '''
 import random
