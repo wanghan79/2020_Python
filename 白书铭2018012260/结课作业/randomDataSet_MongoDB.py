@@ -43,7 +43,7 @@ def dataSampling(dataType, dataRange, num, strLen=8):
             for i in range(0, num):
                 iran = iter(dataRange)
                 item = random.randint(next(iran), next(iran))
-                msg = yield item
+                yield item
         elif dataType is float:
             for i in range(0, num):
                 iran = iter(dataRange)
