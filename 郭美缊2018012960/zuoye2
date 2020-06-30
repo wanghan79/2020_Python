@@ -1,0 +1,18 @@
+import random
+import string
+import types
+def xiushi1(a):
+ number = []  # 列表收集随机数
+ for i in range(0, 100):  # 生成100个数以供筛选
+    num = random.randint(0, 500)  # 整型
+    number.append(num)
+    if type(a) == types.FunctionType()
+
+def xiushi2(q2):
+    positive_list = [n for n in number if n > 200]
+    print(positive_list)
+@xiushi1
+@xiushi2
+def fia():
+    print(fia)
+    #封装我也不太会，这样算勉强实现吧

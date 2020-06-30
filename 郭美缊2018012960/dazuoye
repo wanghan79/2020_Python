@@ -1,0 +1,104 @@
+import pymongo
+import random
+import string
+
+cl = pymongo.mongocl("mongodb://localhost:27017/")  # 连接本地数据库
+db = cl["shujuku"]
+col = mydb["sites"]  # 创建表
+col.drop()    #每次更新数据
+
+
+def Sampling(type,range, num, strlen=10):
+    try:
+        a = []
+        if type is int:
+            for index in range(0, num):
+                it = iter(range)
+                item = random.randint(next(it), next(it))
+                a.append(item)
+                yield item
+                continue
+        elif type is float:
+            for index in range(0, num):
+                it = iter(range)
+                item = random.uniform(next(it), next(it))
+                a.append(item)
+                yield item
+                continue
+        elif type is str:
+            for index in range(0, num):
+                item = ''.join(random.SystemRandom().choice(range) for _ in range(strlen))
+                result.append(item)
+                yield item
+                continue
+    except TypeError:
+        print("? Type Error")
+    except StopIteration:
+        print("? Iteration Error")
+    finally:
+        pass
+
+
+
+def Screening(type, a, *conditions):
+    try:
+        result_scr = []
+        if type is int:
+            for i in a:
+                it = iter(conditions)
+                low = next(it)
+                high = next(it)
+                if low <= i <= high:
+                    result_scr.append(i)
+                continue
+        elif type is float:
+            for i in a:
+                it = iter(conditions)
+                low = next(it)
+                high = next(it)
+                if low <= i <= high:
+                    a_scr.append(i)
+                continue
+        elif type is str:
+            for i in a:
+                for sub in i:
+                    if sub in conditions:
+                        a_scr.append(i)
+                continue
+        return result_scr
+    except TypeError:
+        print("Type Error")
+    except StopIteration:
+        print("Iteration Error")
+    finally:
+        pass
+
+
+def apply():
+    data_int = Sampling(int, (200, 500), 2)
+    data_float = Sampling(float, (6.6, 666.6), 6)
+    data_str = Sampling(str, string.ascii_letters + string.digits + "@#$!", 10)
+
+    dataresult_int = Screening(int, data_int, 20, 500)
+    dataresult_float = Screening(float, data_float, 66.6,999.9)
+    dataresult_str = Screening(str, data_str, 'a', 'at')    # 筛选带有'a'和'at'的字符串
+
+    mydict_int = {'type': 'int', 'data': dataresult_int}  # 插入数据
+    mydict_float = {'type': 'float', 'data': dataresult_float}
+    mydict_str = {'type': 'str', 'data': dataresult_str}
+    mycol.insert_one(mydict_int)
+    mycol.insert_one(mydict_float)
+    mycol.insert_one(mydict_str)
+
+
+apply()
+x = mycol.find_one({'type': 'int'})  # 调用数据
+print("int：")
+print(x)
+x = mycol.find_one({'type': 'float'})
+print("float：")
+print(x)
+x = mycol.find_one({'type': 'str'})
+print("str：")
+print(x)
+© 2020 GitHub, Inc.
