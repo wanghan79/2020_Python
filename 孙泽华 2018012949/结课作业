@@ -1,0 +1,38 @@
+'''
+平时作业1：采用函数封装实现至少三种类型的随机数生成，以及随机数筛选；
+平时作业2：将平时作业1中的随机数生成封装为修饰函数（或修饰类），用于修饰随机数筛选函数进行数据筛选；
+平时作业3：使用生成器修改平时作业1中的随机数生成过程，并能够使用随机数筛选函数进行数据筛选；
+结课作业：使用MongoDB存储平时作业3中生成的随机数，并能从MongoDB中查询数据进行数据筛选。
+'''
+import random
+import pymongo
+
+
+def ran_lst():
+    lst = [random.randint(0, 20) for _ in range(5)]
+    lst += [random.uniform(0, 20) for _ in range(5)]
+    lst += [chr(random.randrange(32, 127)) for _ in range(5)]
+    yield lst
+
+
+def ran():
+    lst = []
+    rl = ran_lst()
+    while True:
+        try:
+            lst += next(rl)
+        except StopIteration:
+            break
+    for i in lst:
+        try:
+            if int(i) == i:
+                table.insert_one({'数据': i, '类型': '整数'})
+            else:
+                table.insert_one({'数据': i, '类型': '小数'})
+        except ValueError:
+            table.insert_one({'数据': i, '类型': '字符'})
+
+
+table = pymongo.MongoClient('localhost')['test']['random']
+ran()
+
