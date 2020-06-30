@@ -14,14 +14,13 @@ def dataSampling(dataType, dataRange, num, strLen=8):
     :param dataRange: range of data generated
     :param num: the number of data in set
     :param strLen: maximum length of string( By default,it's 8)
-    :return: a data set
     """
     try:
         if dataType is int:
             for i in range(0, num):
                 iran = iter(dataRange)
                 item = random.randint(next(iran), next(iran))
-                msg = yield item
+                yield item
         elif dataType is float:
             for i in range(0, num):
                 iran = iter(dataRange)
