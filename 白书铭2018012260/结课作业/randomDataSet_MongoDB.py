@@ -36,7 +36,6 @@ def dataSampling(dataType, dataRange, num, strLen=8):
     :param dataRange: range of data generated
     :param num: the number of data in set
     :param strLen: maximum length of string( By default,it's 8)
-    :return: a data set
     """
     try:
         if dataType is int:
