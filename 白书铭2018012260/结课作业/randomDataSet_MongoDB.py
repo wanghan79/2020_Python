@@ -1,6 +1,6 @@
 """
 Author: ShuMing.Bai
-Purpose: Second Homework:  Generate random data set by Decorators using MongDB to store data.
+Purpose: final Homework:  Generate random data set by Decorators using MongDB to store data.
 Created: 6/20/2020
 """
 import random
