@@ -2,7 +2,7 @@
 """
   Author:  QingAnLang
   Purpose: Generate random data set.
-  Created: 1/6/2020
+  Created: 15/6/2020
 """
 import random
 import string
@@ -16,23 +16,22 @@ def dataSampling(datatype, datarange, num, strlen=8):#固定参数；可变参�
     :param strlen:
     :return: a dataset
     '''
-    result = set()#输出
+
     try:
         if datatype is int:
             while len(result) != num:
                 it = iter(datarange)  # 顺序型可迭代的数据变量，迭代器
                 item = random.randint(next(it), next(it))  # next全局函数
-                result.add(item)
+                yield item
         elif datatype is float:
             while len(result) != num:
                 it = iter(datarange)
                 item = random.uniform(next(it), next(it))
-                result.add(item)
+                yield item
         elif datatype is str:
             while len(result) != num:
                 item = ''.join(random.SystemRandom().choice(datarange) for _ in range(strlen))
-                result.add(item)
-        return result
+                yield item
 
     except TypeError:
         print('数据类型无效操作')
@@ -44,8 +43,6 @@ def dataSampling(datatype, datarange, num, strlen=8):#固定参数；可变参�
         print('迭代器的next()方法没有指向任何对象')
     except OverflowError:
         print('内存不够')
-    else:
-        print('no error')
     # finally:
     #     print('-'*100)
     #     raise: #返回外部访问者
@@ -74,26 +71,41 @@ def dataScreening(data,*args):
 
     return result
 
-def apply():#定义应用函数
-    result = dataSampling(int,(1,100),10)
-    print("随机生成10个在（0，100）范围的整数：")
-    print(result)
-    result2 = dataScreening(result,40,60)
-    print('筛选在（40，60）范围内的整数')
-    print(result2)
+result = set()
+a = dataSampling(int,{1,100},10)
+while True:
+    try:
+        result.add(next(a))
+    except StopIteration:
+        break
+print("随机生成10个在0-100之间的整数")
+print(result)
+result1 = dataScreening(result,40,60)
+print("筛选范围在40-60的整数")
+print(result1)
 
-    result = dataSampling(float,(1,100),10)
-    print("随机生成10个在（0，100）范围的浮点数")
-    print(result)
-    result2 = dataScreening(result,40,60)
-    print('筛选在（40，60）范围内的浮点数')
-    print(result2)
+result = set()
+a = dataSampling(float,{1,100},10)
+while True:
+    try:
+        result.add(next(a))
+    except StopIteration:
+        break
+print("随机生成10个在0-100之内浮点数")
+print(result)
+result1 = dataScreening(result,40,60)
+print("筛选范围在40-60的浮点数")
+print(result1)
 
-    result = dataSampling(str, string.ascii_letters+string.digits+"@#$!", 1000)
-    print("随机生成1000个长度为8的字符串")
-    print(result)
-    result2 = dataScreening(result,'ak','awm')
-    print('筛选含有ak和awm的字符串')
-    print(result2)
-apply()
-
+result = set()
+a = dataSampling(str,string.ascii_letters+string.digits,100)
+while True:
+    try:
+        result.add(next(a))
+    except StopIteration:
+        break
+print("随机生成100个长度为8的字符串")
+print(result)
+result1 = dataScreening(result,'s')
+print("筛选含s的字符串")
+print(result1)
