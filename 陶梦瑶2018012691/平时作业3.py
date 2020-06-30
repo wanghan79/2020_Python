@@ -64,21 +64,21 @@ def dataScreening(data, *conditions):
 def apply():
         result = set()
         result1 = dataSampling(int, (0, 100), 10)
-        for i in range(0, 10):
+        for item in range(0, 10):
             result.add(next(result1))
         print(result)
         print(dataScreening(result, 40, 60))
 
         result = set()
         result2 = dataSampling(float, (0, 100), 10)
-        for i in range(0, 10):
+        for item in range(0, 10):
             result.add(next(result2))
         print(result)
         print(dataScreening(result, 40, 60))
 
         result = set()
         result3 = dataSampling(str, string.ascii_letters + string.digits, 10, 5)
-        for i in range(0, 10):
+        for item in range(0, 10):
             result.add(next(result3))
         print(result)
         print(dataScreening(result, 'x'))
