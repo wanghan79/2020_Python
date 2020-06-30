@@ -47,22 +47,22 @@ def dataScreening(data, *conditions):#*args
     result = set()
     #Screening
     try:
-        for index in data:
+        for item in data:
 
-            if type(index) is int:
+            if type(item) is int:
                 i = iter(conditions)
-                if next(i) <= index <= next(i):
-                    result.add(index)
+                if next(i) <= item <= next(i):
+                    result.add(item)
 
-            elif type(index) is float:
+            elif type(item) is float:
                 i = iter(conditions)
-                if next(i) <= index <= next(i):
-                    result.add(index)
+                if next(i) <= item <= next(i):
+                    result.add(item)
 
-            elif type(index) is str:
-                for indexstr in conditions:
-                    if indexstr in index:
-                        result.add(index)
+            elif type(item) is str:
+                for itemstr in conditions:
+                    if itemstr in item:
+                        result.add(item)
 
         return result
 
