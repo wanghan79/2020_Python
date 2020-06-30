@@ -1,0 +1,28 @@
+##!/usr/bin/python3
+"""
+  Author:  FuNing Jia
+  Purpose: Producer consumer problem realize by generator.
+  Created: 20/6/2020
+"""
+# yield x相当于return  控制的是函数的返回值
+# 在定义生成器函数的yield时，可以给yield赋值
+# x = yield的另一个特性，接收send传过来的值，赋给x
+# send类似于__next__()方法，不过生成器刚启动时，不能send一个不为None的值,
+# 所以先要运行__next__()方法现启用生成器。
+# 以生产蛋糕和吃蛋糕为例，如下：
+import time
+def eat(name):
+   print('%s要开始吃蛋糕了'%name)
+   while True:
+      baozi = yield
+      time.sleep(1)
+      print('%s把%s吃掉了'%(name,baozi))
+
+def product():
+   eat_list = ['A','B','C']
+   for i in range(len(eat_list)):
+      c = eat(eat_list[i])
+      c.__next__()
+      for b in range(5):
+         c.send('蛋糕%d'%b)
+product()
