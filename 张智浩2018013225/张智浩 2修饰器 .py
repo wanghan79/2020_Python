@@ -45,7 +45,7 @@ def screen(type,values,doLim,upLim):
 
 def main():
     print("整形:")
-    result = screen(int, 10, 10, 50, {1,100})  #参数列表：类型，数量，筛选下限，筛选上限，生成范围
+    result = screen(int, 10, 10, 50, {1,100})  
     print("浮点型:")
     result = screen(float, 5, 6.2, 70.4, {1, 100})
     print("字符串：")
