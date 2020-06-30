@@ -1,0 +1,25 @@
+                                                                                                                                                                                                             School of Economics and Management, Northeast Normal University
+                                                                                                                                                                                                                                                                           Changchun City, Jilin Province 
+                                   																	   P.R.C
+                                                                                                                           											     June 29, 2020 														
+
+
+
+To Doctor.Wang
+
+First off, I am hankering for appreciating for Dr.Wang's instructions and patience in course of this entire semester. As a matter of fact, as a cross-disciplinary student, this is my first time to obtain certain understandings of programming and coding. Indeed, computer science and tecchnology is an awesome field and I am clear that I have a long way to go, but fortunately, I've taken my first steps in the right direction thanks to Dr.Wang.
+
+I have ever encountered huge difficulties on Python and spent countless nights trying to find the optimal approach to overcome them. Thankfully, Dr.Wang was so supportive and gave me numerous guidence, inspirations and encouragement. With the help of Dr.Wang, I could identify each minor outlier and resolve potential problems with ease. And in retrospect, I really embrace this course of learning, and Python actually could exert positive effects on my own major such as data analysis and visualization. 
+
+From my perspective,  I do not tend to dabble in computer science and technology, so apart from cherishing this wonderful adventure, I will do my utmost to cultivate more computer skills in the future and explore it unceasingly. 
+
+Sincerely,
+Dngyuan Xu
+
+
+The requirements and introductions of homework are illustrated as follows:
+XDY Homework1：采用函数封装实现至少三种类型的随机数生成，以及随机数筛选；
+XDY Homework1_amendment：在hw1实现随机数生成和筛选功能的基础上，把result=[ ]从每个判断中提取，对其他部分代码进行简化；
+XDY Homework2：将hw1中的随机数生成封装为修饰函数（或修饰类），用于修饰随机数筛选函数进行数据筛选；
+XDY Homework3：使用生成器修改hw中的随机数生成过程，并能够使用随机数筛选函数进行数据筛选；
+XDY Final homework：使用MongoDB存储hw3中生成的随机数，并能从MongoDB中查询数据进行数据筛选。
